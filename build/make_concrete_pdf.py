@@ -2,17 +2,18 @@
 """
 Revit Concrete Modeling — Table of Contents.
 Light-theme layout replicated from 'light them.jpeg' (case-study design):
-- white page + fine light-blue grid
+- white page + fine light-blue grid + soft color-wash blobs + blue streak
+- soft blurred drop shadows under every card
 - top three letter-spaced labels (blue / navy / blue)
 - huge Poppins ExtraBold title, navy + vivid blue accent word
 - pill badges, play-triangle section labels ("Table of Contents")
-- numbered content blocks (01..20), green check bullets
+- numbered content blocks (01..20): number chip, ghost number, green checks
 - green stat blocks, orange ring (white center), photo cards
 - ALL LIGHT: no dark fills anywhere
 Content = original outline, word for word, same 4-page structure.
 """
 import os
-from PIL import Image
+from PIL import Image, ImageDraw, ImageFilter
 from reportlab.pdfgen import canvas
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
@@ -56,6 +57,76 @@ CW = PAGE_W - 2*M
 TOTAL_PAGES = 4
 OUT = os.path.join(ROOT, "enhanced", "Revit Concrete Modeling Course Outline.pdf")
 
+# ------------------------------------------------------------- soft assets --
+_A = {}
+def _asset(key, builder):
+    if key not in _A:
+        _A[key] = builder()
+    return _A[key]
+
+def soft_shadow(w, h, r=14, blur=9, peak=64):
+    """PNG of a blurred rounded-rect shadow, sized (w+36) x (h+36)."""
+    key = ("sh", round(w), round(h), r)
+    def build():
+        pw, ph = int(w) + 36, int(h) + 36
+        img = Image.new("RGBA", (pw, ph), (0, 0, 0, 0))
+        d = ImageDraw.Draw(img)
+        d.rounded_rectangle([18, 18, pw - 18, ph - 18], radius=r,
+                            fill=(28, 42, 78, peak))
+        img = img.filter(ImageFilter.GaussianBlur(blur))
+        p = os.path.join(IMGDIR, f"sh_{round(w)}x{round(h)}.png")
+        img.save(p)
+        return p
+    return _asset(key, build)
+
+def blob(color, peak=100, size=640):
+    """PNG of a soft radial color circle."""
+    key = ("bl", color, peak)
+    def build():
+        m = Image.new("L", (size, size), 0)
+        ImageDraw.Draw(m).ellipse([40, 40, size - 40, size - 40], fill=255)
+        m = m.filter(ImageFilter.GaussianBlur(size * 0.17))
+        m = m.point(lambda a: int(a * peak / 255))
+        img = Image.new("RGBA", (size, size), color + (0,))
+        img.putalpha(m)
+        p = os.path.join(IMGDIR, f"bl_{color}.png")
+        img.save(p)
+        return p
+    return _asset(key, build)
+
+def streak(color=(191, 212, 255), w=220, h=900, peak=46, blur=46):
+    """PNG vertical soft bar (the light-blue streak from the reference)."""
+    key = ("st", color)
+    def build():
+        img = Image.new("RGBA", (w, h), (0, 0, 0, 0))
+        d = ImageDraw.Draw(img)
+        d.rectangle([int(w * 0.3), 0, int(w * 0.72), h], fill=color + (255,))
+        img = img.filter(ImageFilter.GaussianBlur(blur))
+        m = img.getchannel("A").point(lambda a: int(a * peak / 255))
+        img.putalpha(m)
+        p = os.path.join(IMGDIR, "streak.png")
+        img.save(p)
+        return p
+    return _asset(key, build)
+
+def top_wash(color=(214, 228, 255), w=1224, h=360, peak=95):
+    """PNG vertical gradient wash, strong at top, fading down."""
+    key = ("tw", color)
+    def build():
+        base = Image.new("L", (1, h), 0)
+        for y in range(h):
+            base.putpixel((0, y), int(peak * (1 - y / h) ** 1.6))
+        m = base.resize((w, h))
+        img = Image.new("RGBA", (w, h), color + (0,))
+        img.putalpha(m)
+        p = os.path.join(IMGDIR, "wash.png")
+        img.save(p)
+        return p
+    return _asset(key, build)
+
+def draw_blob(c, path, cx, cy, r):
+    c.drawImage(ImageReader(path), cx - r, cy - r, 2 * r, 2 * r, mask="auto")
+
 # ---------------------------------------------------------------- helpers ---
 def rrect(c, x, y, w, h, r, fill=None, stroke=None, sw=1):
     c.saveState()
@@ -69,9 +140,11 @@ def rrect(c, x, y, w, h, r, fill=None, stroke=None, sw=1):
 def rrect_path(c, x, y, w, h, r):
     p = c.beginPath(); p.roundRect(x, y, w, h, r); return p
 
-def shadow_card(c, x, y, w, h, r=12, dy=2.2, border=LINE):
-    rrect(c, x, y-dy, w, h, r, fill=SHADOW)
-    rrect(c, x, y, w, h, r, fill=WHITE, stroke=border, sw=1)
+def shadow_card(c, x, y, w, h, r=12, border=LINE, fill=WHITE, sw=1):
+    """card with a real soft blurred shadow."""
+    c.drawImage(ImageReader(soft_shadow(w, h, r)), x - 18, y - 18 + 5,
+                w + 36, h + 36, mask="auto")
+    rrect(c, x, y, w, h, r, fill=fill, stroke=border, sw=sw)
 
 def text_w(s, font, size):
     return stringWidth(s, font, size)
@@ -133,9 +206,16 @@ def section_label(c, x, y, label, color=INK, mark=BLUE, size=9.5):
     triangle(c, x, y + 3.2, 8, mark)
     spaced(c, x + 14, y, label, POP[600], size, color, 1.4)
 
-def bg_grid(c):
+B_BLUE   = (190, 208, 250)   # soft periwinkle
+B_LAV    = (208, 205, 245)   # soft lavender
+B_MINT   = (196, 236, 222)   # soft mint
+
+def bg_grid(c, variant=0):
+    """white base + fine grid + soft wash blobs + blue streak (depth)."""
     c.saveState()
     c.setFillColor(WHITE); c.rect(0, 0, PAGE_W, PAGE_H, fill=1, stroke=0)
+    c.drawImage(ImageReader(top_wash()), 0, PAGE_H - 260, PAGE_W, 260,
+                mask="auto")
     c.setStrokeColor(GRID); c.setLineWidth(0.55)
     p = c.beginPath()
     x = 26
@@ -143,6 +223,23 @@ def bg_grid(c):
     y = 26
     while y < PAGE_H: p.moveTo(0, y); p.lineTo(PAGE_W, y); y += 26
     c.drawPath(p, fill=0, stroke=1)
+    # soft blobs (varied per page, all very light)
+    layouts = [
+        # (color, cx, cy, r, peak)
+        [(B_BLUE, 545, 640, 250, 165), (B_LAV, -55, 430, 210, 150),
+         (B_BLUE, 590, 95, 150, 120)],
+        [(B_LAV, 585, 90, 235, 160), (B_BLUE, -60, 705, 200, 145),
+         (B_MINT, 600, 470, 130, 90)],
+        [(B_BLUE, -55, 95, 215, 150), (B_LAV, 595, 655, 225, 160),
+         (B_MINT, -40, 470, 120, 85)],
+        [(B_LAV, 560, 90, 230, 160), (B_BLUE, -60, 690, 205, 145),
+         (B_MINT, 610, 430, 120, 85)],
+    ]
+    for col, cx, cy, r, peak in layouts[variant % 4]:
+        draw_blob(c, blob(col, peak), cx, cy, r)
+    # light-blue vertical streak (as in the reference)
+    c.drawImage(ImageReader(streak()), -52, -20, 190, PAGE_H + 40,
+                mask="auto")
     c.restoreState()
 
 def logo(c, x, ytop, title=None, sub=None):
@@ -164,7 +261,7 @@ def header(c, page):
     label = f"0{page} / 0{TOTAL_PAGES}"
     w = text_w(label, POP[700], 7.5) + 0.8 * (len(label) - 1) + 22
     pill(c, PAGE_W - M - w, PAGE_H - M - 6, label, POP[700], 7.5,
-         BLUE, BLUE_TINT, tracking=0.8)
+         BLUE, WHITE, border=LINE, tracking=0.8)
 
 def footer(c, page):
     c.saveState()
@@ -179,35 +276,49 @@ def footer(c, page):
 # ------------------------------------------------------------------ cards ---
 CARD_TL, CARD_TP = 12, 10
 def _topic_lines(title, topics, w):
-    usable = w - 2*11 - 9.5
-    return (len(wrap_text(title, POP[600], 11, w - 22)),
+    usable = w - 2*12 - 9.5
+    tlw = w - (12 + 25 + 10) - 12
+    return (len(wrap_text(title, POP[600], 11, tlw)),
             sum(len(wrap_text(t, ITR[400], 8.3, usable)) for t in topics))
 
 def card_height(title, topics, w):
     tl, tlines = _topic_lines(title, topics, w)
-    return 53.5 + tl * CARD_TL + tlines * CARD_TP
+    return 30.4 + tl * CARD_TL + tlines * CARD_TP
 
 def card_module(c, x, y, w, num, title, topics, accent=BLUE):
-    pad = 11
-    tl, tlines = _topic_lines(title, topics, w)
-    h = 53.5 + tl * CARD_TL + tlines * CARD_TP
-    shadow_card(c, x, y - h, w, h, r=10)
-    c.saveState()
-    c.setFont(POP[800], 15); c.setFillColor(accent)
-    c.drawString(x + pad, y - 13.5, f"{num:02d}")
-    c.setStrokeColor(accent); c.setLineWidth(2.2)
-    c.line(x + pad, y - 17.5, x + pad + 16, y - 17.5)
-    c.restoreState()
-    ty = y - 13.5 - 17 - 4
-    c.saveState(); c.setFont(POP[600], 11); c.setFillColor(INK)
-    for line in wrap_text(title, POP[600], 11, w - 22):
-        c.drawString(x + pad, ty, line); ty -= CARD_TL
-    c.restoreState()
-    ty -= 8
+    pad = 12
+    chip = 25
+    tlx = x + pad + chip + 10
+    tlw = w - (pad + chip + 10) - pad
+    title_lines = wrap_text(title, POP[600], 11, tlw)
     usable = w - 2*pad - 9.5
+    tlines = sum(len(wrap_text(t, ITR[400], 8.3, usable)) for t in topics)
+    h = 30.4 + len(title_lines) * CARD_TL + tlines * CARD_TP
+    shadow_card(c, x, y - h, w, h, r=12)
+    # ghost number, top-right (only when it won't touch the title)
+    if len(title_lines) == 1 and text_w(title_lines[0], POP[600], 11) <= w - 106:
+        c.saveState()
+        c.setFont(POP[800], 26)
+        c.setFillColor(HexColor("#DCE7FB"))
+        c.drawRightString(x + w - 13, y - 34, f"{num:02d}")
+        c.restoreState()
+    # number chip
+    rrect(c, x + pad, y - pad - chip, chip, chip, 7, fill=BLUE_TINT)
+    c.saveState()
+    c.setFont(POP[800], 12); c.setFillColor(accent)
+    c.drawCentredString(x + pad + chip / 2, y - 28.4, f"{num:02d}")
+    c.restoreState()
+    # title (right of chip)
+    ty = y - 28.4
+    c.saveState(); c.setFont(POP[600], 11); c.setFillColor(INK)
+    for line in title_lines:
+        c.drawString(tlx, ty, line); ty -= CARD_TL
+    c.restoreState()
+    # topics
+    ty = y - 28.4 - len(title_lines) * CARD_TL - 8
     for t in topics:
-        check(c, x + pad + 1.8, ty + 3)
         for line in wrap_text(t, ITR[400], 8.3, usable):
+            check(c, x + pad + 1.8, ty + 3)
             c.saveState(); c.setFont(ITR[400], 8.3); c.setFillColor(GRAY)
             c.drawString(x + pad + 9.5, ty, line)
             c.restoreState()
@@ -374,11 +485,11 @@ TOC = [
 
 # ----------------------------------------------------------------- cover ---
 def page_cover(c, imgs):
-    bg_grid(c)
+    bg_grid(c, 0)
     logo(c, M, PAGE_H - M + 2)
     w = text_w("TABLE OF CONTENTS", POP[700], 7.5) + 0.8 * 16 + 22
     pill(c, PAGE_W - M - w, PAGE_H - M - 6, "TABLE OF CONTENTS", POP[700],
-         7.5, BLUE, BLUE_TINT, tracking=0.8)
+         7.5, BLUE, WHITE, border=LINE, tracking=0.8)
 
     # three top labels (like EFFECTIVE / IN BUILDING / TRUST)
     y = PAGE_H - 116
@@ -422,7 +533,7 @@ def page_cover(c, imgs):
 
 # ------------------------------------------------------------ content pages -
 def content_header(c, page):
-    bg_grid(c)
+    bg_grid(c, page)
     header(c, page)
     section_label(c, M, PAGE_H - 116, "TABLE OF CONTENTS")
     return PAGE_H - 140   # cards top y
