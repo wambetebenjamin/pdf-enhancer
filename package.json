@@ -1,0 +1,27 @@
+{
+  "name": "pdf-enhancer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wambetebenjamin/pdf-enhancer.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wambetebenjamin/pdf-enhancer/issues"
+  },
+  "homepage": "https://github.com/wambetebenjamin/pdf-enhancer#readme",
+  "dependencies": {
+    "@expo-google-fonts/barlow": "^0.4.1",
+    "@expo-google-fonts/barlow-condensed": "^0.4.1",
+    "@expo-google-fonts/ibm-plex-mono": "^0.4.1",
+    "@expo-google-fonts/newsreader": "^0.4.1",
+    "puppeteer": "^25.10.0"
+  }
+}
