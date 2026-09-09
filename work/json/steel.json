@@ -1,0 +1,277 @@
+[
+ {
+  "num": 1,
+  "title": "Brief overview of Revit (what it entails) ............................................................................... 1",
+  "bullets": [
+   "Difference with CAD software",
+   "Benefits over CAD software"
+  ]
+ },
+ {
+  "num": 2,
+  "title": "Setting up the software ..................................................................................................... 1",
+  "bullets": [
+   "Brief introduction of Libraries required",
+   "Downloading other extensions from Autodesk site"
+  ]
+ },
+ {
+  "num": 3,
+  "title": "Beginning with Revit ......................................................................................................... 1",
+  "bullets": [
+   "Creating a new project",
+   "An overview of the templates",
+   "An overview of palettes, tabs and panels"
+  ]
+ },
+ {
+  "num": 4,
+  "title": "Creating Datum Elements ................................................................................................. 2",
+  "bullets": [
+   "Creating Levels",
+   "Creating Grids",
+   "Elevation Markers",
+   "Propagate options extents on the grid",
+   "Customizing and changing the shape and appearance of grid bubbles (optional)",
+   "Linking CAD files to create grids"
+  ]
+ },
+ {
+  "num": 5,
+  "title": "Modeling Steel Columns ................................................................................................... 3",
+  "bullets": [
+   "Placement of columns",
+   "Loading column families"
+  ]
+ },
+ {
+  "num": 6,
+  "title": "Modeling Concrete Columns ............................................................................................. 4",
+  "bullets": [
+   "Placement of concrete columns",
+   "Loading column families"
+  ]
+ },
+ {
+  "num": 7,
+  "title": "Modeling the Foundations ................................................................................................. 4",
+  "bullets": [
+   "Hosting foundations on the columns created",
+   "Loading other foundation families into your drawings"
+  ]
+ },
+ {
+  "num": 8,
+  "title": "Modeling the rafters ......................................................................................................... 4",
+  "bullets": [
+   "Placement of Rafters",
+   "Loading steel beam sections",
+   "Attaching Columns to the rafters",
+   "Copying rafters from grid to grid"
+  ]
+ },
+ {
+  "num": 9,
+  "title": "Modelling of the Steel Beams ............................................................................................ 5",
+  "bullets": [
+   "Loading steel beam sections",
+   "Modelling of the floor beams",
+   "Justification Rule of the Beams",
+   "Copying of the floor beams",
+   "Modelling of the Beams at the Eaves Level"
+  ]
+ },
+ {
+  "num": 10,
+  "title": "Beam System Layout and Justification Rules .................................................................. 6",
+  "bullets": [
+   "Using the beam system to model the structural beams",
+   "Modelling the beams using the beam system layout rules",
+   "Modelling the beams using the beam system Justification Rules",
+   "Deselecting the beam system"
+  ]
+ },
+ {
+  "num": 11,
+  "title": "Composite Slab and Composite Beam ........................................................................... 8",
+  "bullets": [
+   "Modelling the Composite Beam",
+   "Modelling the Composite Slab",
+   "Cantilever the Composite Slab"
+  ]
+ },
+ {
+  "num": 12,
+  "title": "Floor Openings ........................................................................................................... 10",
+  "bullets": [
+   "Using the Shaft Opening Tool"
+  ]
+ },
+ {
+  "num": 13,
+  "title": "Curved Beams ........................................................................................................... 10",
+  "bullets": [
+   "Procedure of modeling the curved beams"
+  ]
+ },
+ {
+  "num": 14,
+  "title": "Sloped/Slanted Beams ................................................................................................ 11",
+  "bullets": [
+   "Modelling sloped beams using the offset tool",
+   "Modelling sloped beams using the Framing Elevation"
+  ]
+ },
+ {
+  "num": 15,
+  "title": "Purlins and Side Rails ................................................................................................. 11",
+  "bullets": [
+   "Modelling the Purlins using Reference Planes",
+   "Modelling the Purlins using the Beam System",
+   "Modelling the Side Rails"
+  ]
+ },
+ {
+  "num": 16,
+  "title": "Bracings .................................................................................................................... 13",
+  "bullets": [
+   "Vertical Bracings",
+   "Horizontal Bracing"
+  ]
+ },
+ {
+  "num": 17,
+  "title": "Visibility/Graphics and Filters ....................................................................................... 14",
+  "bullets": [
+   "Applying Visibility/Graphic Overrides \u2192 Method 1",
+   "Applying Visibility/Graphic Overrides \u2192 Method 2",
+   "Applying Visibility/Graphic Overrides \u2192 Method 3",
+   "Applying Visibility/Graphic Overrides \u2192 Method 4",
+   "Hiding Elements"
+  ]
+ },
+ {
+  "num": 18,
+  "title": "Creating Sections ....................................................................................................... 16",
+  "bullets": [
+   "Types of Sections",
+   "Creating sections in your drawing"
+  ]
+ },
+ {
+  "num": 19,
+  "title": "Placing of Reinforcement ............................................................................................ 17",
+  "bullets": [
+   "Setting up the Reinforcement Cover",
+   "Placing Reinforcement at the Foundation",
+   "Column Reinforcement",
+   "Slab reinforcement"
+  ]
+ },
+ {
+  "num": 20,
+  "title": "Splitting Elements ....................................................................................................... 19",
+  "bullets": [
+   "Splitting Elements"
+  ]
+ },
+ {
+  "num": 21,
+  "title": "Introduction to Connections ......................................................................................... 19",
+  "bullets": [
+   "Uploading the Connections",
+   "Applying Connections to the Structural Elements",
+   "Propagate the Connections"
+  ]
+ },
+ {
+  "num": 22,
+  "title": "Connection Types ....................................................................................................... 21",
+  "bullets": [
+   "Main Types of Connection",
+   "Haunch Connection",
+   "Apex Connection",
+   "Base Plate Connection",
+   "Gusset Plate Bracing Connection",
+   "Gusset Plate Column-Base Plate Connection",
+   "Purlin Connection / Side Rail Connection",
+   "Single sided end plate (simple connection)",
+   "Single sided end plate (moment connection)",
+   "Double sided end plate (simple connection)",
+   "Fin plate (simple connection)",
+   "Clip Angle (simple connection)",
+   "Column Splice connection",
+   "Creating Custom Connections"
+  ]
+ },
+ {
+  "num": 23,
+  "title": "Fabrication Elements, Modifiers and Parametric Cuts .................................................... 23",
+  "bullets": [
+   "Use and Location"
+  ]
+ },
+ {
+  "num": 24,
+  "title": "Annotations ................................................................................................................ 23",
+  "bullets": [
+   "Adding dimensions",
+   "Adding spot elevations",
+   "Adding spot coordinates",
+   "Adding spot slope",
+   "Creating Custom Bolt and Plate tags"
+  ]
+ },
+ {
+  "num": 25,
+  "title": "Detailing of Sections ................................................................................................... 24",
+  "bullets": [
+   "Placing breaklines in the sections",
+   "Using hatch files to create regions",
+   "Placement of rebar tags on your reinforcements",
+   "Adding comments on your reinforcement",
+   "Tagging of the structural elements"
+  ]
+ },
+ {
+  "num": 26,
+  "title": "Schedules and Material Takeoffs ................................................................................. 25",
+  "bullets": [
+   "Creating Bar Bending Schedules",
+   "Loading shape images into bar bending schedules",
+   "Creating Material Takeoffs for the structural elements",
+   "Sorting and filtering fields in material takeoffs and bar bending schedules"
+  ]
+ },
+ {
+  "num": 27,
+  "title": "Placing Drawings on Sheets ........................................................................................ 26",
+  "bullets": [
+   "Loading different paper sizes for your title blocks",
+   "Using system loaded title blocks",
+   "Editing and customizing the title blocks",
+   "Adjusting texts and fields in your title block",
+   "Saving title blocks as a Revit family template",
+   "Introduction to duplicate options for drawings",
+   "Placing drawings on the sheets"
+  ]
+ },
+ {
+  "num": 28,
+  "title": "Printing Sheets to PDF format ..................................................................................... 28",
+  "bullets": [
+   "Setting up your sheets before printing",
+   "Printing one sheet at a time",
+   "Printing several sheets at a time"
+  ]
+ },
+ {
+  "num": 29,
+  "title": "Conversion of your files into CAD and other formats ...................................................... 28",
+  "bullets": [
+   "Export options for your drawing into other formats",
+   "Transporting your drawing to AutoCAD",
+   "Sending your model for analysis"
+  ]
+ }
+]

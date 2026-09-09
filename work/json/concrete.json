@@ -1,0 +1,194 @@
+[
+ {
+  "num": 1,
+  "title": "Brief overview of Revit (what it entails) ............................................................................... 5",
+  "bullets": [
+   "Difference with AutoCAD software",
+   "Benefits over AutoCAD software"
+  ]
+ },
+ {
+  "num": 2,
+  "title": "Setting up the software ..................................................................................................... 5",
+  "bullets": [
+   "Brief introduction of Libraries required",
+   "Downloading other extensions from Autodesk site"
+  ]
+ },
+ {
+  "num": 3,
+  "title": "Beginning with Revit ......................................................................................................... 5",
+  "bullets": [
+   "Creating a new project",
+   "An overview of the templates",
+   "An overview of palettes, tabs and panels"
+  ]
+ },
+ {
+  "num": 4,
+  "title": "Creating Datum Elements ................................................................................................. 6",
+  "bullets": [
+   "Creating Levels",
+   "Creating grids \u2013 (same as with the levels creation)",
+   "Propagate options extents on the grid",
+   "Customizing and changing the shape and appearance of grid bubbles",
+   "Linking CAD files to create grids"
+  ]
+ },
+ {
+  "num": 5,
+  "title": "Brief Overview of Creating 3D elements ............................................................................. 7",
+  "bullets": [
+   "Foundations, Columns, Beams, Slabs"
+  ]
+ },
+ {
+  "num": 6,
+  "title": "Creating Columns ............................................................................................................ 7",
+  "bullets": [
+   "Placement of columns",
+   "Loading column families"
+  ]
+ },
+ {
+  "num": 7,
+  "title": "Creating Foundations ....................................................................................................... 7",
+  "bullets": [
+   "Hosting foundations on the columns created",
+   "Creating Strip footing",
+   "Using eccentricity option",
+   "Basement floor slab",
+   "Loading foundation families into your drawings"
+  ]
+ },
+ {
+  "num": 8,
+  "title": "Creating Beams and slabs ................................................................................................ 8",
+  "bullets": [
+   "Copying beams and slabs from level to level",
+   "Creating a slab",
+   "Hollow pot and waffle slab"
+  ]
+ },
+ {
+  "num": 9,
+  "title": "Curved Beams ................................................................................................................. 9",
+  "bullets": [
+   "Procedure of modeling the curved beams"
+  ]
+ },
+ {
+  "num": 10,
+  "title": "Beam System Layout and Justification Rules .................................................................. 9",
+  "bullets": [
+   "Using the beam system to model the structural beams",
+   "Modelling the beams using the beam system layout rules",
+   "Modelling the beams using the beam system Justification Rules",
+   "Deselecting the beam system"
+  ]
+ },
+ {
+  "num": 11,
+  "title": "Creating Staircase and Ramps .................................................................................... 11",
+  "bullets": [
+   "Types of staircase",
+   "Creating an architectural ramp and structural ramp",
+   "Modeling Staircase as a ramp",
+   "Shaft openings"
+  ]
+ },
+ {
+  "num": 12,
+  "title": "Visibility/Graphics and Filters ....................................................................................... 12",
+  "bullets": [
+   "Applying Visibility/Graphic Overrides \u2192 Method 1",
+   "Applying Visibility/Graphic Overrides \u2192 Method 2",
+   "Applying Visibility/Graphic Overrides \u2192 Method 3",
+   "Applying Visibility/Graphic Overrides \u2192 Method 4"
+  ]
+ },
+ {
+  "num": 13,
+  "title": "Creating Roofs and Truss placement............................................................................ 14",
+  "bullets": [
+   "Sloped and gable ended roofing",
+   "Adding system trusses on your roof",
+   "Editing and creating your own customized trusses"
+  ]
+ },
+ {
+  "num": 14,
+  "title": "Placing of Reinforcement ............................................................................................ 15",
+  "bullets": [
+   "Creating sections in your drawing",
+   "Foundation Reinforcement",
+   "Column Reinforcement",
+   "Beam Reinforcement",
+   "Slab reinforcement",
+   "Staircase reinforcement",
+   "Ramp reinforcement"
+  ]
+ },
+ {
+  "num": 15,
+  "title": "Annotations ................................................................................................................ 17",
+  "bullets": [
+   "Adding dimensions",
+   "Adding spot elevations",
+   "Adding spot coordinates",
+   "Adding spot slope"
+  ]
+ },
+ {
+  "num": 16,
+  "title": "Detailing of Sections ................................................................................................... 17",
+  "bullets": [
+   "Placing breaklines in the sections",
+   "Using hatch files to create regions",
+   "Placement of rebar tags on your reinforcements",
+   "Adding comments on your reinforcement",
+   "Tagging of the structural elements"
+  ]
+ },
+ {
+  "num": 17,
+  "title": "Schedules and Material Takeoffs ................................................................................. 19",
+  "bullets": [
+   "Creating Bar Bending Schedules",
+   "Loading shape images into bar bending schedules",
+   "Creating Material Takeoffs for the structural elements",
+   "Sorting and filtering fields in material takeoffs and bar bending schedules"
+  ]
+ },
+ {
+  "num": 18,
+  "title": "Placing Drawings on Sheets ........................................................................................ 19",
+  "bullets": [
+   "Loading different paper sizes for your title blocks",
+   "Using system loaded title blocks",
+   "Editing and customizing the title blocks",
+   "Adjusting texts and fields in your title block",
+   "Saving title blocks as a Revit family template",
+   "Introduction to duplicate options for drawings",
+   "Placing drawings on the sheets"
+  ]
+ },
+ {
+  "num": 19,
+  "title": "Printing Sheets to PDF format ..................................................................................... 21",
+  "bullets": [
+   "Setting up your sheets before printing",
+   "Printing one sheet at a time",
+   "Printing several sheets at a time"
+  ]
+ },
+ {
+  "num": 20,
+  "title": "Conversion of your files into CAD and other formats ...................................................... 22",
+  "bullets": [
+   "Export options for your drawing into other formats",
+   "Transporting your drawing to AutoCAD",
+   "Sending your model for analysis"
+  ]
+ }
+]
